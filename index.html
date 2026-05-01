@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Chicken</title>
+    <meta name="description"
+        content="Premium chicken, straight to your door. Ethically raised, freshly cut, delivered same day.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen">
+</head>
+
+<body class="home-page-body">
+    <header class="header">
+        <a href="#home">Home</a>
+        <a href="#packages">Packages</a>
+        <a href="#about">About</a>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <span class="subtext">Farm fresh &middot; delivered to you</span>
+                <h1 class="main-heading">Premium chicken,<br>straight to your door</h1>
+                <p class="description">Ethically raised, freshly cut. Order whole birds, cuts,<br>or marinated portions
+                    &ndash; delivered same day.</p>
+                <a href="#packages" class="order-btn">Order now</a>
+            </div>
+            <div class="hero-image-wrap">
+                <a href="#packages" style="display: contents;">
+                    <img src="images/family_dinner.png" alt="Happy family having dinner together" class="hero-image">
+                </a>
+            </div>
+        </section>
+
+        <!-- Packages Section -->
+        <section id="packages" class="packages-page">
+            <hr>
+            <div class="packages-container" style="max-width: 1100px;">
+                <h1 style="font-size: 3rem; font-weight: 800; text-align: center; margin-top: 10px; margin-bottom: 40px;">
+                    Order Now</h1>
+
+                <div class="checkout-layout">
+                    <!-- Left Side: Package -->
+                    <div class="checkout-package">
+                        <div class="package-item vertical-layout">
+                            <img src="images/chicken_cuts.png" alt="Pieced chicken packaged" class="package-image small">
+                            <div class="package-info">
+                                <h2 class="package-title">Pieced</h2>
+                                <p class="package-desc">Get pieced chicken to your place. Fill in the form to the right to help us deliver it to you. Thanks for visiting us, welcome back.</p>
+                                <div class="calculator-widget">
+                                    <div class="quantity-controls">
+                                        <button type="button" class="qty-btn" id="decrease-qty"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" id="chicken-qty" class="qty-input" value="1" min="1" max="99" readonly>
+                                        <button type="button" class="qty-btn" id="increase-qty"><i class="fa-solid fa-plus"></i></button>
+                                    </div>
+                                    <div class="price-display">
+                                        Total: <strong>Ksh <span id="total-price">1,300</span></strong>
+                                    </div>
+                                </div>
+                                <div class="payment-methods">
+                                    <p class="payment-title">Pay with:</p>
+                                    <div class="payment-icons">
+                                        <button type="button" class="payment-btn active" title="M-Pesa">
+                                            <i class="fa-solid fa-mobile-screen"></i> M-Pesa
+                                        </button>
+                                        <button type="button" class="payment-btn disabled" title="Visa (Coming Soon)" disabled>
+                                            <i class="fa-brands fa-cc-visa"></i>
+                                        </button>
+                                        <button type="button" class="payment-btn disabled" title="Mastercard (Coming Soon)" disabled>
+                                            <i class="fa-brands fa-cc-mastercard"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Form -->
+                    <div class="checkout-form-container">
+                        <h2>Order Details</h2>
+                        <form action="https://send.pageclip.co/fsNL7HN5fuLBqzy12ByS5Kk5a3MU2EVa" class="pageclip-form checkout-form" method="post">
+                            <input type="hidden" name="chicken_quantity" id="form-chicken-qty" value="1">
+                            <input type="hidden" name="total_price" id="form-total-price" value="1300">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" name="first_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" name="last_name" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <input type="text" name="country" value="Kenya" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" name="phone_number" value="+254 " required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Street Address</label>
+                                <input type="text" name="street_address" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Apartment / Suite (Optional)</label>
+                                <input type="text" name="apartment">
+                            </div>
+                            <div class="form-group">
+                                <label>Town / City</label>
+                                <input type="text" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Order Notes</label>
+                                <textarea name="order_notes" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="pageclip-form__submit order-btn submit-btn"><span>Complete Order</span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-page">
+            <hr>
+            <div class="about-hero">
+                <h1 class="about-title">Rooted in ethical farming.</h1>
+                <p class="about-subtitle">We believe you deserve to have the best natural chicken for you and your family. Farm fresh,
+                    ethically raised, and brought to your door within no time. No synthesis. No freezers. Just pure nature.
+                </p>
+            </div>
+
+            <div class="about-layout">
+                <!-- Left Side: About Cards -->
+                <div class="about-cards-container">
+                    <div class="about-card vertical-style">
+                        <h3>Ethically Raised</h3>
+                        <p>Our birds roam freely on open pastures under a bright sky. A stress-free environment guarantees the
+                            finest, healthiest chicken you can completely trust.</p>
+                    </div>
+                    <div class="about-card vertical-style">
+                        <h3>Freshly Cut</h3>
+                        <p>We skip the processing lines and freezing facilities. Your order is prepared exclusively upon
+                            request, ensuring absolute peak freshness in every cut you receive.</p>
+                    </div>
+                    <div class="about-card vertical-style">
+                        <h3>Same Day Delivery</h3>
+                        <p>Because freshness waits for nobody. We dispatch our fleet straight from the farm to ensure your
+                            Chicken dinner package reaches you within mere hours.</p>
+                    </div>
+                </div>
+
+                <!-- Right Side: Illustration -->
+                <div class="about-visual">
+                    <img src="images/farm_illustration.png" alt="Our Farm Illustration" class="story-img large">
+                </div>
+            </div>
+        </section>
+    </main>
+    <div class="social-sidebar">
+        <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fa-solid fa-phone"></i></a>
+        <a href="#" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+    </div>
+
+    <script>
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.header a');
+
+        window.addEventListener('scroll', () => {
+            let current = 'home';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= (sectionTop - 250)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        window.dispatchEvent(new Event('scroll'));
+
+        // Calculator Logic
+        const decreaseBtn = document.getElementById('decrease-qty');
+        const increaseBtn = document.getElementById('increase-qty');
+        const qtyInput = document.getElementById('chicken-qty');
+        const priceDisplay = document.getElementById('total-price');
+
+        if(decreaseBtn && increaseBtn && qtyInput && priceDisplay) {
+            const unitPrice = 1300;
+            const formQtyInput = document.getElementById('form-chicken-qty');
+            const formPriceInput = document.getElementById('form-total-price');
+
+            const updatePrice = () => {
+                let qty = parseInt(qtyInput.value) || 1;
+                if(qty < 1) qty = 1;
+                qtyInput.value = qty;
+                const total = qty * unitPrice;
+                priceDisplay.textContent = total.toLocaleString();
+                if(formQtyInput) formQtyInput.value = qty;
+                if(formPriceInput) formPriceInput.value = total;
+            };
+
+            decreaseBtn.addEventListener('click', () => {
+                let current = parseInt(qtyInput.value) || 1;
+                if(current > 1) {
+                    qtyInput.value = current - 1;
+                    updatePrice();
+                }
+            });
+
+            increaseBtn.addEventListener('click', () => {
+                let current = parseInt(qtyInput.value) || 1;
+                if(current < 99) {
+                    qtyInput.value = current + 1;
+                    updatePrice();
+                }
+            });
+        }
+    </script>
+    <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
+</body>
+
+</html>
