@@ -44,31 +44,7 @@ except Exception as e:
     print(f"Failed to fetch data: {e}")
     exit(1)
 
-html_content = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Chicken Delivery Orders</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f9f9f9; color: #333; }
-        h1 { color: #d32f2f; margin-bottom: 5px; }
-        p.subtitle { color: #555; margin-top: 0; margin-bottom: 20px; }
-        table { border-collapse: collapse; width: 100%; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #f2f2f2; font-weight: bold; }
-        tr:nth-child(even) { background-color: #fbfbfb; }
-        .empty { font-style: italic; color: #777; text-align: center; padding: 20px; }
-    </style>
-    <script>
-        var pass = prompt("Please enter the admin password to view the orders:");
-        if (pass !== '""" + ADMIN_PASSWORD + """') {
-            document.write("<h1 style='text-align:center; padding: 50px; color: #d32f2f; font-family: sans-serif;'>Access Denied! Incorrect Password.</h1>");
-            window.stop();
-        }
-    </script>
-</head>
-<body>
+table_content = """
     <h1>Chicken Delivery Orders</h1>
     <p class="subtitle">Latest submissions from your Pageclip form</p>
     <table>
@@ -86,12 +62,11 @@ html_content = """
 
 items = data.get("data", [])
 if not items:
-    html_content += "<tr><td colspan='8' class='empty'>No orders found yet. Submit a test order on your website first!</td></tr>\n"
+    table_content += "<tr><td colspan='8' class='empty'>No orders found yet. Submit a test order on your website first!</td></tr>\n"
 else:
     for item in items:
         # Parse date and format it
         try:
-            # Example date: "2026-04-30T11:42:56Z"
             dt = datetime.strptime(item.get("createdAt", ""), "%Y-%m-%dT%H:%M:%SZ")
             date_str = dt.strftime("%Y-%m-%d %H:%M")
         except:
@@ -115,7 +90,7 @@ else:
         price = payload.get('total_price', '')
         notes = payload.get('order_notes', '')
 
-        html_content += f"""
+        table_content += f"""
         <tr>
             <td>{date_str}</td>
             <td>{name}</td>
@@ -128,11 +103,92 @@ else:
         </tr>
         """
 
-html_content += """
+table_content += """
     </table>
-</body>
-</html>
 """
+
+# Encrypt the table_content using RC4 so it's not plaintext in HTML
+def rc4_encrypt(key, data):
+    S = list(range(256))
+    j = 0
+    for i in range(256):
+        j = (j + S[i] + key[i % len(key)]) % 256
+        S[i], S[j] = S[j], S[i]
+    i = j = 0
+    out = bytearray()
+    for char in data:
+        i = (i + 1) % 256
+        j = (j + S[i]) % 256
+        S[i], S[j] = S[j], S[i]
+        out.append(char ^ S[(S[i] + S[j]) % 256])
+    return base64.b64encode(out).decode('ascii')
+
+plain_text = "MAGIC:" + table_content
+encrypted_b64 = rc4_encrypt(ADMIN_PASSWORD.encode('utf-8'), plain_text.encode('utf-8'))
+
+html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chicken Delivery Orders</title>
+    <style>
+        body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f9f9f9; color: #333; }}
+        h1 {{ color: #d32f2f; margin-bottom: 5px; }}
+        p.subtitle {{ color: #555; margin-top: 0; margin-bottom: 20px; }}
+        table {{ border-collapse: collapse; width: 100%; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }}
+        th, td {{ border: 1px solid #ddd; padding: 12px; text-align: left; }}
+        th {{ background-color: #f2f2f2; font-weight: bold; }}
+        tr:nth-child(even) {{ background-color: #fbfbfb; }}
+        .empty {{ font-style: italic; color: #777; text-align: center; padding: 20px; }}
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+    <script>
+        function rc4_decrypt(key, b64data) {{
+            var data = atob(b64data);
+            var s = [], j = 0, x, res = '';
+            for (var i = 0; i < 256; i++) {{
+                s[i] = i;
+            }}
+            for (i = 0; i < 256; i++) {{
+                j = (j + s[i] + key.charCodeAt(i % key.length)) % 256;
+                x = s[i];
+                s[i] = s[j];
+                s[j] = x;
+            }}
+            i = 0;
+            j = 0;
+            for (var y = 0; y < data.length; y++) {{
+                i = (i + 1) % 256;
+                j = (j + s[i]) % 256;
+                x = s[i];
+                s[i] = s[j];
+                s[j] = x;
+                res += String.fromCharCode(data.charCodeAt(y) ^ s[(s[i] + s[j]) % 256]);
+            }}
+            return decodeURIComponent(escape(res));
+        }}
+
+        var encryptedData = "{encrypted_b64}";
+        var pass = prompt("Please enter the admin password to view the orders:");
+        if (pass) {{
+            try {{
+                var decrypted = rc4_decrypt(pass, encryptedData);
+                if (decrypted.startsWith("MAGIC:")) {{
+                    document.getElementById('content').innerHTML = decrypted.substring(6);
+                }} else {{
+                    document.body.innerHTML = "<h1 style='text-align:center; padding: 50px; color: #d32f2f; font-family: sans-serif;'>Access Denied! Incorrect Password.</h1>";
+                }}
+            }} catch(e) {{
+                document.body.innerHTML = "<h1 style='text-align:center; padding: 50px; color: #d32f2f; font-family: sans-serif;'>Access Denied! Incorrect Password.</h1>";
+            }}
+        }} else {{
+            document.body.innerHTML = "<h1 style='text-align:center; padding: 50px; color: #d32f2f; font-family: sans-serif;'>Access Denied!</h1>";
+        }}
+    </script>
+</body>
+</html>"""
 
 html_path = os.path.abspath("orders.html")
 with open(html_path, "w", encoding="utf-8") as f:

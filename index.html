@@ -7,6 +7,9 @@
     <title>Premium Chicken</title>
     <meta name="description"
         content="Premium chicken, straight to your door. Ethically raised, freshly cut, delivered same day.">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://s.pageclip.co; script-src 'self' 'unsafe-inline' https://s.pageclip.co; img-src 'self' data:; font-src https://cdnjs.cloudflare.com; connect-src 'self' https://send.pageclip.co;">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen">
@@ -40,22 +43,28 @@
         <section id="packages" class="packages-page">
             <hr>
             <div class="packages-container" style="max-width: 1100px;">
-                <h1 style="font-size: 3rem; font-weight: 800; text-align: center; margin-top: 10px; margin-bottom: 40px;">
+                <h1
+                    style="font-size: 3rem; font-weight: 800; text-align: center; margin-top: 10px; margin-bottom: 40px;">
                     Order Now</h1>
 
                 <div class="checkout-layout">
                     <!-- Left Side: Package -->
                     <div class="checkout-package">
                         <div class="package-item vertical-layout">
-                            <img src="images/chicken_cuts.png" alt="Pieced chicken packaged" class="package-image small">
+                            <img src="images/chicken_cuts.png" alt="Pieced chicken packaged"
+                                class="package-image small">
                             <div class="package-info">
                                 <h2 class="package-title">Pieced</h2>
-                                <p class="package-desc">Get pieced chicken to your place. Fill in the form to the right to help us deliver it to you. Thanks for visiting us, welcome back.</p>
+                                <p class="package-desc">Get pieced chicken to your place. Fill in the form to the right
+                                    to help us deliver it to you. Thanks for visiting us, welcome back.</p>
                                 <div class="calculator-widget">
                                     <div class="quantity-controls">
-                                        <button type="button" class="qty-btn" id="decrease-qty"><i class="fa-solid fa-minus"></i></button>
-                                        <input type="number" id="chicken-qty" class="qty-input" value="1" min="1" max="99" readonly>
-                                        <button type="button" class="qty-btn" id="increase-qty"><i class="fa-solid fa-plus"></i></button>
+                                        <button type="button" class="qty-btn" id="decrease-qty"><i
+                                                class="fa-solid fa-minus"></i></button>
+                                        <input type="number" id="chicken-qty" class="qty-input" value="1" min="1"
+                                            max="99" readonly>
+                                        <button type="button" class="qty-btn" id="increase-qty"><i
+                                                class="fa-solid fa-plus"></i></button>
                                     </div>
                                     <div class="price-display">
                                         Total: <strong>Ksh <span id="total-price">1,300</span></strong>
@@ -67,10 +76,12 @@
                                         <button type="button" class="payment-btn active" title="M-Pesa">
                                             <i class="fa-solid fa-mobile-screen"></i> M-Pesa
                                         </button>
-                                        <button type="button" class="payment-btn disabled" title="Visa (Coming Soon)" disabled>
+                                        <button type="button" class="payment-btn disabled" title="Visa (Coming Soon)"
+                                            disabled>
                                             <i class="fa-brands fa-cc-visa"></i>
                                         </button>
-                                        <button type="button" class="payment-btn disabled" title="Mastercard (Coming Soon)" disabled>
+                                        <button type="button" class="payment-btn disabled"
+                                            title="Mastercard (Coming Soon)" disabled>
                                             <i class="fa-brands fa-cc-mastercard"></i>
                                         </button>
                                     </div>
@@ -82,17 +93,19 @@
                     <!-- Right Side: Form -->
                     <div class="checkout-form-container">
                         <h2>Order Details</h2>
-                        <form action="https://send.pageclip.co/fsNL7HN5fuLBqzy12ByS5Kk5a3MU2EVa" class="pageclip-form checkout-form" method="post">
+                        <form action="https://send.pageclip.co/fsNL7HN5fuLBqzy12ByS5Kk5a3MU2EVa"
+                            class="pageclip-form checkout-form" method="post">
                             <input type="hidden" name="chicken_quantity" id="form-chicken-qty" value="1">
                             <input type="hidden" name="total_price" id="form-total-price" value="1300">
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" name="first_name" required>
+                                    <input type="text" name="first_name" pattern="[A-Za-z\s\-]+" maxlength="50"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" name="last_name" required>
+                                    <input type="text" name="last_name" pattern="[A-Za-z\s\-]+" maxlength="50" required>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -102,30 +115,32 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Phone Number</label>
-                                    <input type="tel" name="phone_number" value="+254 " required>
+                                    <input type="tel" name="phone_number" value="+254 " pattern="^\+?\d{9,15}(\s\d+)*$"
+                                        maxlength="20" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Street Address</label>
-                                <input type="text" name="street_address" required>
+                                <input type="text" name="street_address" maxlength="100" required>
                             </div>
                             <div class="form-group">
                                 <label>Apartment / Suite (Optional)</label>
-                                <input type="text" name="apartment">
+                                <input type="text" name="apartment" maxlength="50">
                             </div>
                             <div class="form-group">
                                 <label>Town / City</label>
-                                <input type="text" name="city" required>
+                                <input type="text" name="city" pattern="[A-Za-z\s\-]+" maxlength="50" required>
                             </div>
                             <div class="form-group">
                                 <label>Email Address</label>
-                                <input type="email" name="email" required>
+                                <input type="email" name="email" maxlength="100" required>
                             </div>
                             <div class="form-group">
                                 <label>Order Notes</label>
-                                <textarea name="order_notes" rows="3"></textarea>
+                                <textarea name="order_notes" rows="3" maxlength="500"></textarea>
                             </div>
-                            <button type="submit" class="pageclip-form__submit order-btn submit-btn"><span>Complete Order</span></button>
+                            <button type="submit" class="pageclip-form__submit order-btn submit-btn"><span>Complete
+                                    Order</span></button>
                         </form>
                     </div>
                 </div>
@@ -137,8 +152,10 @@
             <hr>
             <div class="about-hero">
                 <h1 class="about-title">Rooted in ethical farming.</h1>
-                <p class="about-subtitle">We believe you deserve to have the best natural chicken for you and your family. Farm fresh,
-                    ethically raised, and brought to your door within no time. No synthesis. No freezers. Just pure nature.
+                <p class="about-subtitle">We believe you deserve to have the best natural chicken for you and your
+                    family. Farm fresh,
+                    ethically raised, and brought to your door within no time. No synthesis. No freezers. Just pure
+                    nature.
                 </p>
             </div>
 
@@ -147,7 +164,8 @@
                 <div class="about-cards-container">
                     <div class="about-card vertical-style">
                         <h3>Ethically Raised</h3>
-                        <p>Our birds roam freely on open pastures under a bright sky. A stress-free environment guarantees the
+                        <p>Our birds roam freely on open pastures under a bright sky. A stress-free environment
+                            guarantees the
                             finest, healthiest chicken you can completely trust.</p>
                     </div>
                     <div class="about-card vertical-style">
@@ -157,22 +175,21 @@
                     </div>
                     <div class="about-card vertical-style">
                         <h3>Same Day Delivery</h3>
-                        <p>Because freshness waits for nobody. We dispatch our fleet straight from the farm to ensure your
+                        <p>Because freshness waits for nobody. We dispatch our fleet straight from the farm to ensure
+                            your
                             Chicken dinner package reaches you within mere hours.</p>
                     </div>
                 </div>
 
-                <!-- Right Side: Illustration -->
-                <div class="about-visual">
-                    <img src="images/farm_illustration.png" alt="Our Farm Illustration" class="story-img large">
-                </div>
             </div>
         </section>
     </main>
     <div class="social-sidebar">
-        <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#" class="social-link"><i class="fa-solid fa-phone"></i></a>
+        <a href="https://wa.me/254769630222" class="social-link" target="_blank" rel="noopener noreferrer"><i
+                class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/yours_trully_victor/" class="social-link" target="_blank"
+            rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+        <a href="tel:+254769630222" class="social-link"><i class="fa-solid fa-phone"></i></a>
         <a href="#" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
         <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
     </div>
@@ -197,7 +214,7 @@
                 }
             });
         });
-        
+
         window.dispatchEvent(new Event('scroll'));
 
         // Calculator Logic
@@ -206,24 +223,24 @@
         const qtyInput = document.getElementById('chicken-qty');
         const priceDisplay = document.getElementById('total-price');
 
-        if(decreaseBtn && increaseBtn && qtyInput && priceDisplay) {
+        if (decreaseBtn && increaseBtn && qtyInput && priceDisplay) {
             const unitPrice = 1300;
             const formQtyInput = document.getElementById('form-chicken-qty');
             const formPriceInput = document.getElementById('form-total-price');
 
             const updatePrice = () => {
                 let qty = parseInt(qtyInput.value) || 1;
-                if(qty < 1) qty = 1;
+                if (qty < 1) qty = 1;
                 qtyInput.value = qty;
                 const total = qty * unitPrice;
                 priceDisplay.textContent = total.toLocaleString();
-                if(formQtyInput) formQtyInput.value = qty;
-                if(formPriceInput) formPriceInput.value = total;
+                if (formQtyInput) formQtyInput.value = qty;
+                if (formPriceInput) formPriceInput.value = total;
             };
 
             decreaseBtn.addEventListener('click', () => {
                 let current = parseInt(qtyInput.value) || 1;
-                if(current > 1) {
+                if (current > 1) {
                     qtyInput.value = current - 1;
                     updatePrice();
                 }
@@ -231,7 +248,7 @@
 
             increaseBtn.addEventListener('click', () => {
                 let current = parseInt(qtyInput.value) || 1;
-                if(current < 99) {
+                if (current < 99) {
                     qtyInput.value = current + 1;
                     updatePrice();
                 }
