@@ -28,13 +28,14 @@ if pwd != ADMIN_PASSWORD:
     print("Access Denied! Incorrect password.")
     exit(1)
 
-URL = "https://api.pageclip.co/api/data/chicken_order"
+URL = "https://api.pageclip.co/data/chicken_order"
 
 auth_string = f"{API_KEY}:"
 base64_auth = base64.b64encode(auth_string.encode('ascii')).decode('ascii')
 
 req = urllib.request.Request(URL)
 req.add_header("Authorization", f"Basic {base64_auth}")
+req.add_header("Accept", "application/vnd.pageclip.v1+json")
 
 try:
     print("Fetching orders from Pageclip...")
