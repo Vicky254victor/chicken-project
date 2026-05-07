@@ -28,7 +28,7 @@ if pwd != ADMIN_PASSWORD:
     print("Access Denied! Incorrect password.")
     exit(1)
 
-URL = "https://api.pageclip.co/data"
+URL = "https://api.pageclip.co/api/data/chicken_order"
 
 auth_string = f"{API_KEY}:"
 base64_auth = base64.b64encode(auth_string.encode('ascii')).decode('ascii')
