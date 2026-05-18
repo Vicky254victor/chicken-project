@@ -8,7 +8,7 @@
     <meta name="description"
         content="Premium chicken, straight to your door. Ethically raised, freshly cut, delivered same day.">
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://s.pageclip.co https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://s.pageclip.co; img-src 'self' data:; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; connect-src 'self' https://send.pageclip.co;">
+        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://s.pageclip.co https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://s.pageclip.co https://js.paystack.co; img-src 'self' data: https://*.paystack.co https://*.paystack.com; font-src https://cdnjs.cloudflare.com https://fonts.gstatic.com; connect-src 'self' https://send.pageclip.co https://api.paystack.co; frame-src 'self' https://checkout.paystack.com;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="style.css">
@@ -35,7 +35,7 @@
             </div>
             <div class="hero-image-wrap">
                 <a href="#packages" style="display: contents;">
-                    <img src="images/family_dinner.png" alt="Happy family having dinner together" class="hero-image">
+                    <img src="images/new_hero_image.jpg" alt="Happy family having dinner together" class="hero-image">
                 </a>
             </div>
         </section>
@@ -257,11 +257,48 @@
         }
     </script>
     <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
     <script>
+        var isPaid = false;
         var form = document.querySelector('.pageclip-form');
         if (form && window.Pageclip) {
             Pageclip.form(form, {
-                onSubmit: function (event) { },
+                onSubmit: function (event) {
+                    if (!isPaid) {
+                        var amountStr = document.getElementById("form-total-price").value;
+                        var amount = parseInt(amountStr, 10) * 100;
+                        var email = document.querySelector('input[name="email"]').value;
+                        
+                        var handler = PaystackPop.setup({
+                            key: 'pk_test_5ada0e13d98d3c482b555941c52398b0cf7ac57a',
+                            email: email,
+                            amount: amount,
+                            currency: 'KES',
+                            ref: ''+Math.floor((Math.random() * 1000000000) + 1),
+                            callback: function(response) {
+                                isPaid = true;
+                                var refInput = document.createElement('input');
+                                refInput.type = 'hidden';
+                                refInput.name = 'paystack_reference';
+                                refInput.value = response.reference;
+                                form.appendChild(refInput);
+                                
+                                var btn = form.querySelector('.submit-btn');
+                                btn.classList.remove('pageclip-form__submit--loading');
+                                btn.click();
+                            },
+                            onClose: function() {
+                                alert('Payment window closed. Order not placed.');
+                                var btn = form.querySelector('.submit-btn');
+                                btn.disabled = false;
+                                btn.classList.remove('pageclip-form__submit--loading');
+                            }
+                        });
+                        handler.openIframe();
+                        return false;
+                    }
+                    return true;
+                },
                 onResponse: function (error, response) {
                     if (!error) {
                         var btn = form.querySelector('.submit-btn');
@@ -278,6 +315,7 @@
                                 document.getElementById('total-price').textContent = '1,300';
                             }
                         }, 4000);
+                        isPaid = false;
                     } else {
                         alert("There was an error submitting your order. Please try again.");
                     }

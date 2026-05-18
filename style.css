@@ -39,11 +39,11 @@ section {
 }
 
 .packages-container {
-    padding-top: 80px;
+    padding-top: 40px;
 }
 
 .about-hero {
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 main {
@@ -103,13 +103,13 @@ hr {
 }
 
 .hero-section {
-    padding: 30px 60px;
+    padding: 15px 30px;
     flex-grow: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 50px;
+    gap: 25px;
 }
 
 .hero-content {
@@ -150,6 +150,7 @@ hr {
 
 .hero-image {
     width: 800px;
+    aspect-ratio: 1 / 1;
     max-width: 100%;
     max-height: 75vh;
     object-fit: cover;
@@ -210,8 +211,8 @@ hr {
 .images-section {
     position: relative;
     flex-grow: 1;
-    min-height: 450px;
-    padding: 20px 60px;
+    min-height: 400px;
+    padding: 10px 30px;
     overflow: hidden;
 }
 
@@ -250,7 +251,7 @@ hr {
 
 .footer {
     text-align: center;
-    padding: 30px;
+    padding: 15px;
 }
 
 .footer-link {
@@ -263,7 +264,7 @@ hr {
 /* Page content for the other two pages */
 .page-content {
     flex-grow: 1;
-    padding: 60px;
+    padding: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -271,7 +272,7 @@ hr {
 
 /* Packages Page Styling */
 .packages-page {
-    padding: 0 60px 40px 60px;
+    padding: 0 30px 20px 30px;
     overflow-y: auto;
 }
 
@@ -283,15 +284,15 @@ hr {
 .packages-list {
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    gap: 30px;
 }
 
 .package-item {
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 25px;
     background-color: rgba(255, 255, 255, 0.4);
-    padding: 30px;
+    padding: 15px;
     border-radius: 16px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     width: 85%;
@@ -354,11 +355,11 @@ hr {
 
 /* About Page Styling */
 .about-page {
-    padding: 0 80px 60px 80px;
+    padding: 0 40px 30px 40px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 20px;
 }
 
 .about-hero {
@@ -397,14 +398,14 @@ hr {
 .about-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .about-card {
     background-color: rgba(255, 255, 255, 0.4);
-    padding: 40px;
+    padding: 20px;
     border-radius: 20px;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
@@ -431,11 +432,11 @@ hr {
 .about-story {
     display: flex;
     align-items: center;
-    gap: 60px;
+    gap: 30px;
     max-width: 1000px;
     margin: 0 auto;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     border-top: 1px solid #bbaaa0;
 }
 
@@ -507,7 +508,7 @@ hr {
 .checkout-layout {
     display: flex;
     flex-direction: row;
-    gap: 40px;
+    gap: 20px;
     align-items: flex-start;
 }
 
@@ -614,10 +615,10 @@ hr {
 .about-layout {
     display: flex;
     flex-direction: row;
-    gap: 60px;
+    gap: 30px;
     align-items: center;
     max-width: 1100px;
-    margin: 40px auto 0 auto;
+    margin: 20px auto 0 auto;
 }
 
 .about-cards-container {
